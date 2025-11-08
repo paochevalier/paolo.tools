@@ -8,6 +8,9 @@
 #'
 #' @return The modified data frame.
 #' @export
+#' @importFrom dplyr mutate case_when
+#' @importFrom rlang sym `:=`
+#' @importFrom magrittr `%>%`
 #'
 #' @examples
 #' \dontrun{
