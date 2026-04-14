@@ -1,24 +1,30 @@
-#' Transform EMEF hour variables (24–32 -> 00–08)
+#' Transform EMEF hour variables (24–32 -> 0–8)
 #'
-#' This function recodes EMEF hour variables (values 24–32) into their
-#' equivalent 0–08 format, modifying the variable indicated by `variable_hora`.
-#' Non-numeric values used to encode non-response, such as "NS/NC", are
-#' converted to NA.
+#' Recodes EMEF hour variables where values 24 to 32 correspond to hours
+#' between 00:00 and 08:00. These values are converted to 0–8.
 #'
-#' @param EMEF A data frame containing the EMEF data.
-#' @param variable_hora A string naming the column to transform (e.g. "V03D").
+#' Non-response values such as "NS/NC" are explicitly converted to NA.
 #'
-#' @return The modified data frame.
-#' @export
+#' @param EMEF A data frame containing EMEF data.
+#' @param variable_hora A character string naming the variable to transform.
 #'
-#' @importFrom dplyr mutate case_when select
-#' @importFrom rlang sym `:=`
-#' @importFrom magrittr `%>%`
+#' @return The input data frame with the transformed hour variable.
+#'
+#' @details
+#' The function:
+#' \itemize{
+#'   \item Converts the variable to character, then numeric
+#'   \item Maps values 24–32 to 0–8
+#'   \item Converts known non-response values (e.g. "NS/NC") to NA
+#' }
 #'
 #' @examples
 #' \dontrun{
 #' EMEF <- transform_hour_EMEF(EMEF, "V03D")
 #' }
+#'
+#' @export
+
 transform_hour_EMEF <- function(EMEF, variable_hora) {
   variable_sym <- rlang::sym(variable_hora)
 

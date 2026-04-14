@@ -2,24 +2,35 @@
 % Please edit documentation in R/transform_hour_EMEF.R
 \name{transform_hour_EMEF}
 \alias{transform_hour_EMEF}
-\title{Transform EMEF hour variables (24–32 → 00–08)}
+\title{Transform EMEF hour variables (24–32 -> 0–8)}
 \usage{
 transform_hour_EMEF(EMEF, variable_hora)
 }
 \arguments{
-\item{EMEF}{A data frame containing the EMEF data.}
+\item{EMEF}{A data frame containing EMEF data.}
 
-\item{variable_hora}{A string naming the column to transform (e.g. "V03D").}
+\item{variable_hora}{A character string naming the variable to transform.}
 }
 \value{
-The modified data frame.
+The input data frame with the transformed hour variable.
 }
 \description{
-This function recodes EMEF hour variables (values 24–32) into their
-equivalent 0–08 format, modifying the variable indicated by \code{variable_hora}.
+Recodes EMEF hour variables where values 24 to 32 correspond to hours
+between 00:00 and 08:00. These values are converted to 0–8.
+}
+\details{
+Non-response values such as "NS/NC" are explicitly converted to NA.
+
+The function:
+\itemize{
+\item Converts the variable to character, then numeric
+\item Maps values 24–32 to 0–8
+\item Converts known non-response values (e.g. "NS/NC") to NA
+}
 }
 \examples{
 \dontrun{
 EMEF <- transform_hour_EMEF(EMEF, "V03D")
 }
+
 }
